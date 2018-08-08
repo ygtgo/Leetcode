@@ -1,0 +1,39 @@
+
+
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+
+Example:
+
+Input: 1->2->4, 1->3->4
+Output: 1->1->2->3->4->4
+
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode *dummy = new ListNode(-1),*cur = dummy;  //建立一个dummy node使得它next指向linked list的第一个node
+        while (l1 && l2){                                   //l1 != nullptr && l2 != nullptr
+            if(l1->val < l2->val){
+                cur->next = l1;
+                l1 = l1->next;
+            }else{
+                cur->next = l2;
+                l2 = l2->next;
+            }
+            cur = cur ->next;             //链接剩下部分
+        }
+        cur->next = l1 ? l1 :l2;
+        return dummy->next;
+    }
+};
