@@ -14,7 +14,6 @@ Example 2:
 Input: [4,3,2,1]
 Output: [4,3,2,2]
 Explanation: The array represents the integer 4321.
-
 思路：由于存在进位问题，从尾到头判断是否为9，是则赋值为0，不是则直接加1返回，最后判断第一位是否为0，为0则说明进位了在数组最前面加1
 class Solution {
 public:
