@@ -1,0 +1,30 @@
+Given two binary strings, return their sum (also a binary string).
+
+The input strings are both non-empty and contains only characters 1 or 0.
+
+Example 1:
+
+Input: a = "11", b = "1"
+Output: "100"
+Example 2:
+
+Input: a = "1010", b = "1011"
+Output: "10101"
+
+思路： a b两个数组从末尾开始，取出字符，将字符转为数字，定义进位carry, 
+将三个数相加，对2取余 为当前位的数字，对2 取商为当前位的进位，最后判断carry进位是否为1，若是结果前面加1
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string res = "";
+        int m = a.size() - 1,n = b.size() - 1, carry = 0;
+        while (m >= 0 || n >= 0){
+            int p = m >= 0 ? a[m--] - '0' : 0;
+            int q = n >= 0 ? b[n--] - '0' : 0;
+            int sum = p + q + carry;
+            res = to_string(sum % 2) + res;
+            carry = sum / 2;
+        }
+        return carry == 1 ? "1" + res : res;
+    }
+};
