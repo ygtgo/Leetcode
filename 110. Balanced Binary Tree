@@ -1,0 +1,83 @@
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as:
+
+a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+
+Example 1:
+
+Given the following tree [3,9,20,null,null,15,7]:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+Return true.
+
+Example 2:
+
+Given the following tree [1,2,2,3,3,null,null,4,4]:
+
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
+Return false.
+
+
+
+思路：求各个点的深度，然后对每个节点的两个子树比较深度差
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(!root)
+            return true;
+        if(abs(getDepth(root->left) - getDepth(root->right)) > 1)   //绝对值大于1
+            return false;
+        return isBalanced(root->left) && isBalanced(root->right);  //每个节点的深度
+    }
+    int getDepth(TreeNode *root){
+        if(!root)
+            return 0;
+        return 1 + max(getDepth(root->left),getDepth(root->right));
+    }
+};
+ 
+ 优化：对于每个节点，递归获得左右子树深度，若子树为平衡的则返回真实的深度，若发现子树不平衡，则不计算具体深度。直接返回-1
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(checkDepth(root) == -1)
+            return false;
+        else 
+            return true;
+    }
+    int checkDepth(TreeNode *root) {
+        if(!root)
+            return 0;
+        int left = checkDepth(root->left);
+        if(left == -1)
+            return -1;
+        int right = checkDepth(root->right);
+        if(right == -1)
+            return -1;
+        int diff = abs(left - right);
+        if(diff > 1)
+            return -1;
+        else 
+            return 1 + max(left,right);
+    }
+};
