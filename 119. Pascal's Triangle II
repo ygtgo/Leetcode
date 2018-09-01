@@ -1,0 +1,30 @@
+Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
+
+Note that the row index starts from 0.
+In Pascal's triangle, each number is the sum of the two numbers directly above it.
+Example:
+
+Input: 3
+Output: [1,3,3,1]
+
+思路：空间复杂度要为o(k),就不能算出每一行的值，与前一种方法一样，除了第一个数为1之外，后面的数都是上一次循环的数值加上它前面位置的数值之和
+不停循环跟新每一个位置的值
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> out;
+        if(rowIndex < 0) 
+            return out;
+        out.assign(rowIndex + 1,0);
+        for( int i = 0; i <= rowIndex; ++i){
+            if(i == 0) {
+                out[0] = 1;
+                continue;
+            }
+            for( int j = rowIndex; j >=1; --j) {
+                out[j] = out[j] + out[j-1];
+            }
+        }
+        return out;
+    }
+};
