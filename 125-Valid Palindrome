@@ -1,0 +1,32 @@
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+Note: For the purpose of this problem, we define empty string as valid palindrome.
+
+Example 1:
+
+Input: "A man, a plan, a canal: Panama"
+Output: true
+Example 2:
+
+Input: "race a car"
+Output: false
+
+思路：在判断是否为回文数的基础上加上判断是否为字母数字和大写转小写
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int left = 0, right = s.size() - 1;     //指针指向头尾
+        while (left < right){
+            if(!isalnum(s[left]))
+                ++left;
+            else if (!isalnum(s[right]))        //利用isalnum判断是否为字母数字
+                --right;
+            else if ((s[left] + 32 - 'a') %32 != (s[right] + 32 - 'a') %32)  //大写转小写 大写+32 = 小写
+                return false;
+            else{
+                   ++left; --right;
+            }
+        }
+        return true;
+    }
+};
