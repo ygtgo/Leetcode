@@ -1,0 +1,26 @@
+Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+
+Note:
+
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Example 1:
+
+Input: [2,2,1]
+Output: 1
+Example 2:
+
+Input: [4,1,2,1,2]
+Output: 4
+
+思路：由于数组中除了某个元素只出现一次以外，其余每个元素均出现两次，利用异或方法， 相同数字异或为0
+     不同的数字异或为1,0与数字本身异或为其本身，将数组中每个数组异或最后剩下的便是只出现一次的数字
+     a ⊕b ⊕ c = a ⊕ (b ⊕ c) = (a ⊕ b) ⊕ c;
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int res = 0;
+        for (int num : nums) res ^= num;
+        return res;
+    }
+};
