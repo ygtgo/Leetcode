@@ -1,0 +1,28 @@
+Given an integer n, return the number of trailing zeroes in n!.
+
+Example 1:
+
+Input: 3
+Output: 0
+Explanation: 3! = 6, no trailing zero.
+Example 2:
+
+Input: 5
+Output: 1
+Explanation: 5! = 120, one trailing zero.
+Note: Your solution should be in logarithmic time complexity.
+
+思路：求阶乘尾数的0 的个数，实际上就是判断阶乘中多少个10（2*5），也就是说0是2*5得到的，因子分解阶乘中的每个数，
+看下多少个5 和 2 因为2的个数肯定大于5的个数，所以这题我们判断有多少个因子分解后5即可
+如25 25/5 = 5   5/5 = 1 总共6个0
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int res = 0;
+        while (n){
+            res += n/5;
+            n /= 5;
+        }
+        return res;
+    }
+};
