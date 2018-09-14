@@ -1,0 +1,25 @@
+Reverse bits of a given 32 bits unsigned integer.
+
+Example:
+
+Input: 43261596
+Output: 964176192
+Explanation: 43261596 represented in binary as 00000010100101000001111010011100, 
+             return 964176192 represented in binary as 00111001011110000010100101000000.
+ 
+思路:将你（32位数）从右至左取出，取最右边数，如果取出的是1 ，将结果res 左移一位加1 ，否则左移一位即可，最后将n右移一位，继续取
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        uint32_t res = 0;
+        for (int i = 0; i < 32; ++i){
+            if (n & 1 == 1){
+                res = (res << 1) + 1;
+            }else{
+                res = res << 1;
+            }
+            n = n >> 1;
+        }
+        return res;
+    }
+};
