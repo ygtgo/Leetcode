@@ -23,7 +23,7 @@ WHERE Salary < (SELECT max(Salary) FROM Employee)
 
 2.
 SELECT TOP 1 a.Salary from (select distinct top 2 Salary from Employee order by Salary desc)a
-
+SELECT TOP 1 a.Salary from (select top 2 b.Salary from (select distinct top 2 Salary from #Employee order by Salary desc)b order by b.Salary)a
 MySQL:
 SELECT (SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT 1 OFFSET 1) AS SecondHighestSalary
 
