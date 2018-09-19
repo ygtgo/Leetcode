@@ -27,7 +27,7 @@
 SELECT
   Score,
   (SELECT count(distinct Score) FROM Scores WHERE Score >= a.Score)Rank
-FROM Scores s
+FROM Scores a
 ORDER BY Score desc
 
 
