@@ -10,6 +10,10 @@ Example 2:
 Input: "cbbd"
 Output: "bb"
 
+思路1：采用动态规划,维护一个二维数组dp,dp[j][i] 区间[j,i] 是否为回文串，
+      ①当j = i 时只有一个字符，肯定是回文串
+      ②如果 j = i+1 说明是相邻字符，此时判断s[i] == s[j] 如果i-j >=2 说明不相邻，除了判断s[i] == s[j]
+      若dp[j+1][i-1] 为回文串，则为回文串
 
 class Solution {
 public:
@@ -17,14 +21,14 @@ public:
         int dp[s.size()][s.size()] = {0}, left = 0, right = 0, len = 0;
         for (int i = 0; i < s.size(); ++i) {
             for (int j = 0; j < i; ++j) {
-                dp[j][i] = (s[i] == s[j] && (i - j < 2 || dp[j + 1][i - 1]));
-                if (dp[j][i] && len < i - j + 1) {
+                dp[j][i] = (s[i] == s[j] && (i - j < 2 || dp[j + 1][i - 1]));   //②
+                if (dp[j][i] && len < i - j + 1) {    //更新最长的回文串起始结束为止和长度
                     len = i - j + 1;
                     left = j;
                     right = i;
                 }
             }
-            dp[i][i] = 1;
+            dp[i][i] = 1; // ①
         }
         return s.substr(left, right - left + 1);
     }
@@ -32,7 +36,10 @@ public:
 
 
 
-
+思路2 ： Manacher's Algorithm 马拉车算法
+参考自：http://www.cnblogs.com/grandyang/p/4475985.html
+http://www.cnblogs.com/love-yh/p/7072161.html
+http://www.cnblogs.com/bitzhuwei/p/Longest-Palindromic-Substring-Part-II.html
 class Solution {
 public:
     string longestPalindrome(string s) {
