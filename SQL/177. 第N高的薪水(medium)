@@ -23,7 +23,8 @@ SET m = N - 1;
   RETURN (
       # Write your MySQL query statement below.
         SELECT MAX(Salary) FROM Employee E1
-      WHERE N =
+      WHERE N =                        
+      -----------这里表示工资比自己（工资第n高）高或相等的记录数（如果n= 2,则工资比自己（工资第2高）高或相等的记录只有工资第一高和自己）
       (SELECT COUNT(DISTINCT(E2.Salary)) FROM Employee E2
       WHERE E2.Salary >= E1.Salary)
   );
