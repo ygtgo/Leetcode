@@ -1,0 +1,48 @@
+每往队列中插入一个元素，都将它前面的元素弹出并重新插入队列中，这样就能保证最后插入队列的元素始终在队列的最前端
+用队列实现栈
+
+class MyStack {
+	
+	private:
+		queue<int> q;
+		int size;
+		
+	public:
+		MyStack() {
+		    size=0;
+		}
+		
+		/** Push element x onto stack. */
+		void push(int x) {
+			
+		    if(q.size() == 0) {
+		    	q.push(x);
+			}
+			
+			else {
+				q.push(x);
+				for(int i=0; i<size; i++) {
+					q.push(q.front());
+					q.pop();
+				}
+			}
+			size++;
+		}
+		
+		/** Removes the element on top of the stack and returns that element. */
+		int pop() {
+			int ret = q.front();
+			q.pop();
+		    return ret;
+		}
+		
+		/** Get the top element. */
+		int top() {
+		    return q.front();
+		}
+		
+		/** Returns whether the stack is empty. */
+		bool empty() {
+		    return q.size() == 0;
+		}
+};
