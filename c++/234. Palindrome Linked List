@@ -1,0 +1,65 @@
+Given a singly linked list, determine if it is a palindrome.
+
+Example 1:
+
+Input: 1->2
+Output: false
+Example 2:
+
+Input: 1->2->2->1
+Output: true
+
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head || !head -> next)          //单个或无
+            return true;
+        ListNode *slow = head, *fast = head;    //快慢指针
+        stack<int> s;                     //栈存储慢指针的值
+        s.push(head->val);
+        while(fast->next && fast->next->next){
+            slow = slow->next;
+            fast = fast->next->next;
+            s.push(slow->val);
+        }
+        if(!fast->next) s.pop();        //快指针走完链表，慢指针到一半
+        while(slow->next){              //剩下的链表与栈相比较
+            slow = slow->next;
+            int tmp = s.top(); s.pop();
+            if(tmp != slow->val)
+                return false;
+        }
+        return true;
+    }
+};
+
+
+思路二：
+找到中点后，将后半段链表翻转 
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head || !head ->next) return true;
+        ListNode *slow = head, *fast = head;
+        while (fast -> next && fast ->next->next){
+            slow = slow ->next;
+            fast = fast ->next;
+        }
+        ListNode *last = slow->next, *pre = head;
+        while(last->next){                  //翻转链表
+            ListNode *tmp = last->next;
+            last->next = tmp->next;
+            tmp->next = slow->next;
+            slow->next = tmp;
+        }
+        while(slow->next){
+            slow = slow->next;
+            if(pre->val != slow->val) return false;
+            pre = pre->next;
+        }
+        return true;
+    }
+};
+
