@@ -23,7 +23,7 @@ public:
             fast = fast->next->next;
             s.push(slow->val);
         }
-        if(!fast->next) s.pop();        //快指针走完链表，慢指针到一半
+        if(!fast->next) s.pop();        //快指针走完链表，慢指针到一半,若快指针刚好为最后一位（说名为奇数），慢指针指向中间的数，需要删除
         while(slow->next){              //剩下的链表与栈相比较
             slow = slow->next;
             int tmp = s.top(); s.pop();
